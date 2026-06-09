@@ -1,29 +1,31 @@
 import time
 import random
+import platform
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 
 # ドライバー起動
 def create_driver():
-    options = Options(
+    options = Options()
 
-    )
-    # 人間と同じ動作させる
-
-    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--headless")
-    
-    options.binary_location = "/usr/bin/chromium"
+    options.add_argument("--disable-blink-features=AutomationControlled")
 
+    if platform.system() == "Linux":
+        driver = webdriver.Chrome(options=options)
 
-    driver = webdriver.Chrome(
-        service=Service("/usr/bin/chromedriver"),
-        options=options
-    )
+    else:
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()),
+            options=options
+        )
+
     return driver
 
 #価格取得
