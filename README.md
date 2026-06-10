@@ -21,15 +21,15 @@ Web画面から管理
 システム構成
 
 ユーザー
-↓
+→
 Flask Webアプリ
-↓
+→
 Selenium
-↓
+→
 Amazon商品ページ
-↓
+→
 価格取得
-↓
+→
 Discord通知
 
 工夫した点
